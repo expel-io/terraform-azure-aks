@@ -10,7 +10,7 @@ Configures a log sink to send data to a pub/sub queue that
 
 ```hcl
 module "expel_azure_aks_integration" {
-  source = "../../"
+  source  = "expel-io/aks/azure"
 
   # Tenant ID that will be onboarded
   tenant_id = var.tenant_id
@@ -36,6 +36,18 @@ The permissions allocated by this module allow Expel Workbench to perform invest
 2. Does not configure audit logging for your AKS clusters
 
 See Expel's Getting Started Guide for AKS for more onboarding information.
+
+## Issues
+If you find a bug or have an idea for the next amazing feature, please create an issue. We'll get back to you as soon as we can!
+
+## Contributing
+Contributions are welcome!
+
+1. Fork the Project
+2. Create your Feature Branch (git checkout -b feature/AmazingFeature)
+3. Commit your Changes (git commit -m 'Add some AmazingFeature')
+4. Push to the Branch (git push origin feature/AmazingFeature)
+5. Open a Pull Request
 
 <!-- begin-tf-docs -->
 ## Requirements
