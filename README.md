@@ -1,8 +1,8 @@
 # terraform-azure-aks
 Terraform module for configuring Azure Kubernetes Service (AKS) to integrate with [Expel Workbench](https://workbench.expel.io/).
 
-Configures a log sink to send data to a pub/sub queue that
-[Expel Workbench](https://workbench.expel.io/) consumes.
+Configures an Azure AD application registration and custom role that
+[Expel Workbench](https://workbench.expel.io/) uses for onboarding.
 
 :exclamation: Terraform state may contain sensitive information. Please follow best security practices when securing your state.
 
