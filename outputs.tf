@@ -13,6 +13,11 @@ output "subscription_id" {
   value       = var.subscription_id
 }
 
+output "storage_account_name" {
+  description = "The name of the Storage Account where AKS logs will be sent"
+  value       = var.storage_account_name
+}
+
 output "application_secret" {
   description = "The application secret that allows Expel to authenticate"
   value       = azuread_application_password.expel_app_creds.value

@@ -55,6 +55,50 @@ resource "azurerm_role_assignment" "expel_app_la_reader" {
   principal_id         = azuread_service_principal.expel_svc_principal.object_id
 }
 
+# Resource Group for the Storage Account that will store AKS logs
+resource "azurerm_resource_group" "aks_logs_resource_group" {
+  name     = var.resource_group_name
+  location = var.resource_group_location
+}
+
+# The storage account where AKS logs will be sent
+resource "azurerm_storage_account" "aks_logs_storage_account" {
+  name                     = var.storage_account_name
+  resource_group_name      = azurerm_resource_group.aks_logs_resource_group.name
+  location                 = azurerm_resource_group.aks_logs_resource_group.location
+  account_tier             = "Standard"
+  account_replication_type = "RAGRS"
+  access_tier              = "Hot"
+}
+
+# Configure diagnostic logs for provided AKS clusters
+resource "azurerm_monitor_diagnostic_setting" "aks_diagnostic_logs_to_storage_account" {
+  for_each = toset(var.aks_clusters)
+
+  name               = "K8sLoggingForExpel"
+  target_resource_id = each.key
+  storage_account_id = azurerm_storage_account.aks_logs_storage_account.id
+
+  enabled_log {
+    category = "kube-audit" # The K8s control plane logs
+
+    retention_policy {
+      enabled = true
+      days    = var.retention_days
+    }
+  }
+}
+
+# Assigning Storage Account Data Reader to app
+# Condition ensures this access is only for the provided storage account name
+resource "azurerm_role_assignment" "expel_app_sa_reader" {
+  scope                = format("/subscriptions/%s", var.subscription_id)
+  role_definition_name = "Storage Account Data Reader"
+  principal_id         = azuread_service_principal.expel_svc_principal.object_id
+  condition_version    = "2.0"
+  condition            = format("(\n (\n  !(ActionMatches{'Microsoft.Storage/storageAccounts/blobServices/containers/blobs/read'})\n )\n OR \n (\n  @Resource[Microsoft.Storage/storageAccounts:name] StringEquals '%s'\n )\n)", var.storage_account_name)
+}
+
 # Assigning Expel's Custom Role to app
 resource "azurerm_role_assignment" "expel_app_role_assignment" {
   scope              = format("/subscriptions/%s", var.subscription_id)
