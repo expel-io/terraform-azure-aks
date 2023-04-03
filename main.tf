@@ -69,6 +69,17 @@ resource "azurerm_storage_account" "aks_logs_storage_account" {
   account_tier             = "Standard"
   account_replication_type = "RAGRS"
   access_tier              = "Hot"
+  min_tls_version          = "TLS1_2"
+
+  queue_properties {
+    logging {
+      delete                = true
+      read                  = true
+      write                 = true
+      version               = "1.0"
+      retention_policy_days = 10
+    }
+  }
 }
 
 # Configure diagnostic logs for provided AKS clusters
