@@ -127,6 +127,7 @@ resource "azurerm_role_definition" "expel_aks_role" {
     actions = [
       "Microsoft.ContainerService/managedClusters/listClusterUserCredential/action",
       "Microsoft.ContainerService/managedClusters/read",
+      "Microsoft.ContainerService/managedClusters/agentPools/read",
       "Microsoft.ContainerService/managedClusters/privateEndpointConnections/read",
       "Microsoft.ContainerService/managedClusters/diagnosticsState/read"
     ]
