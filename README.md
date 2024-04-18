@@ -1,14 +1,34 @@
-# terraform-azure-aks
-Terraform module for configuring Azure Kubernetes Service (AKS) to integrate with [Expel Workbench](https://workbench.expel.io/).
+# Terraform Module for Azure Kubernetes Service (AKS)
 
-Configures an Azure AD application registration and custom role that
-[Expel Workbench](https://workbench.expel.io/) uses for onboarding.
+This Terraform module configures Azure Kubernetes Service (AKS) to integrate with [Expel Workbench](https://workbench.expel.io/). It sets up an Azure AD application registration and a custom role that Expel Workbench uses for onboarding.
 
-:exclamation: Terraform state may contain sensitive information. Please follow best security practices when securing your state.
+## Table of Contents
+
+- [Features](#features)
+- [Usage](#usage)
+- [Example](#example)
+- [Permissions](#permissions)
+- [Limitations](#limitations)
+- [Issues](#issues)
+- [Contributing](#contributing)
+- [Requirements](#requirements)
+- [Providers](#providers)
+- [Inputs](#inputs)
+- [Outputs](#outputs)
+- [Resources](#resources)
+
+## Features
+
+- Creates an Azure AD application registration for Expel Workbench
+- Creates a custom role for Expel Workbench
+- Configures diagnostic logs for AKS clusters
+- Creates a Storage Account for AKS logs
+- Sends AKS logs to the Storage Account
+- Retains AKS logs in the Storage Account for a specified number of days
 
 ## Usage
 
-```hcl
+```shell
 module "expel_azure_aks_integration" {
   source  = "expel-io/aks/azure"
 
@@ -34,30 +54,40 @@ module "expel_azure_aks_integration" {
 }
 ```
 
-Once you have configured your Azure environment, go to
-https://workbench.expel.io/settings/security-devices?setupIntegration=kubernetes_aks and create an AKS
-security device to enable Expel to begin monitoring your AWS environment.
+After configuring your Azure environment, visit [Expel Workbench](https://workbench.expel.io/settings/security-devices?setupIntegration=kubernetes_aks) to create an AKS security device. This enables Expel to start monitoring your AWS environment.
+
+> **Note:** Terraform state may contain sensitive information. Ensure you follow best security practices when securing your state.
 
 ## Permissions
-The permissions allocated by this module allow Expel Workbench to perform investigations and discover AKS clusters in the environment.
+
+This module grants permissions that allow Expel Workbench to perform investigations and discover AKS clusters in the environment.
+
+## Example
+
+- [Basic](/examples/basic/)
 
 ## Limitations
-1. Will always create a new Azure Active Directory application registration
-2. Will always create a new Storage Account for logging
 
-See Expel's Getting Started Guide for AKS for more onboarding information.
+1. This module will always create a new Azure Active Directory application registration.
+2. It will always create a new Storage Account for logging.
+
+Refer to Expel's Getting Started Guide for AKS for more onboarding information.
 
 ## Issues
-If you find a bug or have an idea for the next amazing feature, please create an issue. We'll get back to you as soon as we can!
+
+Found a bug or have an idea for a new feature? Please [create an issue](https://github.com/expel-io/terraform-azure-aks/issues). We'll respond as soon as possible!
 
 ## Contributing
-Contributions are welcome!
 
-1. Fork the Project
-2. Create your Feature Branch (git checkout -b feature/AmazingFeature)
-3. Commit your Changes (git commit -m 'Add some AmazingFeature')
-4. Push to the Branch (git push origin feature/AmazingFeature)
-5. Open a Pull Request
+We welcome contributions! Here's how you can help:
+
+1. Fork the Project.
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`).
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`).
+4. Push to the Branch (`git push origin feature/AmazingFeature`).
+5. Open a Pull Request.
+
+Please read our [Contributing Code of Conduct](CONTRIBUTING.md) to get started.
 
 <!-- begin-tf-docs -->
 ## Requirements
