@@ -56,7 +56,7 @@ module "expel_azure_aks_integration" {
 
 After configuring your Azure environment, visit [Expel Workbench](https://workbench.expel.io/settings/security-devices?setupIntegration=kubernetes_aks) to create an AKS security device. This enables Expel to start monitoring your AWS environment.
 
-> **Note:** Terraform state may contain sensitive information. Ensure you follow best security practices when securing your state.
+> :exclamation: Terraform state may contain sensitive information. Ensure you follow best security practices when securing your state.
 
 ## Permissions
 
