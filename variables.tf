@@ -1,3 +1,5 @@
+# This file contains the variable declarations for the Terraform module that deploys an Azure AKS cluster and configures diagnostic logs.
+
 variable "tenant_id" {
   description = "The Azure Tenant ID that will be onboarded with Expel Workbench."
   type        = string

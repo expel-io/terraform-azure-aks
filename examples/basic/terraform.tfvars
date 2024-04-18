@@ -1,3 +1,5 @@
+#This file contains the variables used to configure the Azure AKS (Azure Kubernetes Service) cluster.
+
 tenant_id                 = "YOUR_TENANT"
 subscription_id           = "YOUR_SUBSCRIPTION"
 resource_group_name       = "YOUR_RESOURCE_GROUP"
